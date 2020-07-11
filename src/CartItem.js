@@ -2,38 +2,9 @@ import React from 'react';
 
 class CartItem extends React.Component{
 
-    constructor(){
-        super();    
-        this.state={
-            title:'Phone',
-            price:9999,
-            qty:1,
-            img:''
-        }
-    }
-
-    increaseQuantity=()=>{
-        this.setState({
-            qty:this.state.qty+1
-        });
-    }
-
-    decreaseQuantity=()=>{
-
-        if(this.state.qty===0){
-            return ;
-        }
-        this.setState((prevState)=>{
-            return{
-                qty: prevState.qty-1,
-            }
-            
-        },()=>{});
-       
-    }
-
     render(){
-        const{title,price,qty}=this.state;
+        const{title,price,qty}=this.props.product;
+        const { product,onIncreaseQuantity,onDecreaseQuantity,onDeleteProduct }=this.props;
         return (
             <div className="cart-item"> 
                 <div className="left-block">
@@ -48,15 +19,18 @@ class CartItem extends React.Component{
                         <img alt="increase" 
                             className="action-icons" 
                             src="https://image.flaticon.com/icons/svg/992/992651.svg" 
-                            onClick={this.increaseQuantity}/>
+                            onClick={()=>onIncreaseQuantity(product)}
+                            />
 
                         <img alt="decrease" 
                             className="action-icons" 
                             src="https://image.flaticon.com/icons/svg/992/992683.svg" 
-                            onClick={this.decreaseQuantity}/>
+                            onClick={()=>onDecreaseQuantity(product)}
+                            />
                         <img alt="delete" 
                         className="action-icons" 
                         src="https://image.flaticon.com/icons/svg/1214/1214428.svg" 
+                        onClick={()=>onDeleteProduct(product.id)}
                         />
                     </div>
                 </div>
